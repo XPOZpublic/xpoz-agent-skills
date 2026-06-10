@@ -104,6 +104,7 @@ Get a TikTok user profile by ID or username.
 | `identifier` | string | Yes | -- | User ID or username |
 | `identifierType` | `"id"` \| `"username"` | Yes | -- | Whether `identifier` is a numeric ID or username |
 | `fields` | string[] | No | `["id", "username", "nickname"]` | Fields to return (see User Fields above) |
+| `forceLatest` | boolean | No | false | Bypass cache for fresh data |
 
 ### When to use
 

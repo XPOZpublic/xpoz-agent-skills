@@ -29,6 +29,7 @@ Get an Instagram user profile by ID or username.
 | `identifier` | string | Yes | — | User ID or username |
 | `identifierType` | `"id"` \| `"username"` | Yes | — | How to interpret `identifier` |
 | `fields` | string[] | No | `["id", "username", "fullName"]` | Fields to return |
+| `forceLatest` | boolean | No | false | Bypass cache for fresh data |
 
 ### Available Fields
 

@@ -47,6 +47,7 @@ Get a single Twitter user by ID or username.
 | `identifier` | string | Yes | The user ID or username to look up |
 | `identifierType` | `"id"` \| `"username"` | Yes | Whether `identifier` is an ID or username |
 | `fields` | string[] | No | Fields to return (see [User Fields](#user-fields)) |
+| `forceLatest` | boolean | No | Bypass cache for fresh data |
 
 #### Examples
 

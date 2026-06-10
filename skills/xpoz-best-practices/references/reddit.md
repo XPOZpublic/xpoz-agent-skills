@@ -26,6 +26,7 @@ Get a Reddit user by username.
 |-----------|------|----------|---------|-------------|
 | `username` | string | Yes | — | Reddit username (no `u/` prefix) |
 | `fields` | string[] | No | `["id", "username", "totalKarma"]` | Fields to return |
+| `forceLatest` | boolean | No | false | Bypass cache for fresh data |
 
 ### Available Fields
 
