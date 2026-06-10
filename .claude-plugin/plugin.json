@@ -1,0 +1,34 @@
+{
+  "name": "xpoz",
+  "version": "1.0.0",
+  "description": "Social media intelligence across Twitter/X, Instagram, Reddit, and TikTok — no API keys required. Search posts, look up users, track keywords, export data to CSV, and monitor brands via MCP tools, Python SDK, TypeScript SDK, or CLI.",
+  "author": {
+    "name": "Xpoz",
+    "email": "support@xpoz.ai",
+    "url": "https://xpoz.ai"
+  },
+  "homepage": "https://xpoz.ai",
+  "repository": "https://github.com/xpoz-ai/xpoz-agent-skills",
+  "license": "MIT",
+  "keywords": [
+    "social-media",
+    "twitter",
+    "instagram",
+    "reddit",
+    "tiktok",
+    "mcp",
+    "mcp-server",
+    "social-intelligence",
+    "brand-monitoring",
+    "sentiment-analysis",
+    "competitive-intel",
+    "osint",
+    "social-listening",
+    "python-sdk",
+    "typescript-sdk",
+    "cli",
+    "data-export",
+    "tracking"
+  ],
+  "skills": "./skills/"
+}
