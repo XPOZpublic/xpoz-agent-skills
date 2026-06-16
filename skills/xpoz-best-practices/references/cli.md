@@ -77,7 +77,7 @@ SDK parameter names in **snake_case** are converted to **--kebab-case** flags:
 | `response_type` | `--response-type` |
 | `page_number` | `--page-number` |
 | `force_latest` | `--force-latest` |
-| `filter_out_retweets` | `--filter-out-retweets` |
+| `filter_out_retweets` | `--filter-out-retweets` (Twitter only) |
 
 ---
 
@@ -99,6 +99,8 @@ xpoz-cli tiktok get_posts_by_hashtags --hashtags ai machinelearning deeplearning
 ---
 
 ## Rendering Modes
+
+**Note:** CSV export and paginated walk modes are async operations and may take longer than the default JSON mode.
 
 ### Standard (JSON)
 

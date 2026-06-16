@@ -129,7 +129,7 @@ Then call `getAccountDetails` to retrieve the user's account information. Presen
 
 ## Step 4: Set Up Tracking
 
-Setting up tracking is highly recommended — it's a best practice for getting fresher, more relevant data. Tracked items are crawled regularly, so your search results are more up-to-date, have better coverage, and return faster than untracked queries. Walk the user through their first tracked items.
+Setting up tracking is highly recommended — it's a best practice for getting more complete data. Tracked items are crawled regularly, so your search results have better coverage and capture activity that one-off queries might miss. Walk the user through their first tracked items.
 
 Ask:
 > "What would you like to monitor? For example:

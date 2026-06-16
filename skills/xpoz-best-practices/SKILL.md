@@ -83,12 +83,9 @@ All keyword search tools support boolean query syntax:
 | Exact phrase | `"machine learning"` | Matches exact phrase |
 | OR | `"AI" OR "artificial intelligence"` | Matches either term |
 | AND | `"Tesla" AND "earnings"` | Matches both terms |
-| NOT | `"crypto" NOT "scam"` | Excludes term |
 | Grouping | `("deep learning" OR "neural network") AND python` | Combines operators |
 
 **Date filtering:** Use `startDate` / `endDate` in YYYY-MM-DD format. Omit to use defaults (varies by tool).
-
-**Language filtering** (Twitter only): Use `language` parameter with ISO code (e.g., `"en"`).
 
 **Content filtering** (Twitter only): Set `filterOutRetweets: true` to exclude retweets.
 
@@ -161,11 +158,10 @@ See **[references/tiktok.md](references/tiktok.md)** for all parameters, fields,
 
 ## Tracking
 
-Setting up tracking is a best practice for getting the most relevant and up-to-date data from Xpoz. Tracked items are crawled regularly in the background, which means:
+Setting up tracking is a best practice for getting more complete data from Xpoz. Tracked items are crawled regularly in the background, which means:
 
-- **Fresher data** — tracked items have significantly more up-to-date results than untracked queries against cached data
 - **Better coverage** — continuous collection captures posts and activity that a single point-in-time query might miss
-- **Faster queries** — data is pre-collected and indexed, so searches return results immediately without API fallback delays
+- **More complete data** — tracked items accumulate data over time, giving you a fuller picture than one-off queries
 
 Track keywords, users, subreddits, and hashtags across all 4 platforms.
 

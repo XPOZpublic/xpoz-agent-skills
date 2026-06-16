@@ -29,6 +29,8 @@
         "reddit",
         "tiktok",
         "social-intelligence",
+        "social-analytics",
+        "social-media-analytics",
         "sentiment-analysis",
         "influencer-discovery",
         "competitive-intelligence",
@@ -44,6 +46,7 @@
       "category": "external-integrations",
       "tags": [
         "social-media",
+        "social-analytics",
         "data-retrieval",
         "sentiment-analysis",
         "competitive-intelligence",

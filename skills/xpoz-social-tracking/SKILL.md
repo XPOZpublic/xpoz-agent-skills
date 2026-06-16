@@ -9,11 +9,10 @@ allowed-tools: Bash(xpoz-cli *)
 
 ## Overview
 
-Tracking is a best practice for getting the most relevant and up-to-date data from Xpoz. When you track a keyword, user, subreddit, or hashtag, Xpoz continuously collects fresh data for those items in the background. This means:
+Tracking is a best practice for getting more complete data from Xpoz. When you track a keyword, user, subreddit, or hashtag, Xpoz continuously collects data for those items in the background. This means:
 
-- **Fresher data:** Tracked items are crawled regularly, so your search results are more up-to-date than one-shot queries against cached data.
+- **More complete data:** Tracked items accumulate data over time, giving you a fuller picture than one-off queries.
 - **Better coverage:** Continuous collection captures posts and activity that a single point-in-time query might miss.
-- **Faster queries:** Data is pre-collected and indexed, so searches against tracked items return results immediately without waiting for API fallback.
 
 You can track four types of items across platforms:
 - **Keywords** — Track any phrase or topic (e.g., "AI agents", "your brand name"). Xpoz continuously collects posts matching these keywords across the platforms you specify.
@@ -218,8 +217,8 @@ items: [
 
 ## Notes
 
-- **Tracking vs one-shot queries:** Tracking sets up continuous data collection with fresher, more comprehensive results. One-shot queries (like `getTwitterPostsByKeywords`) search existing cached data and may miss recent activity. Track items you care about for ongoing, up-to-date intelligence; use one-shot queries for ad-hoc research.
-- **Data freshness:** Tracked items are crawled regularly, giving you significantly fresher data than untracked queries. This is especially impactful for fast-moving topics or competitive monitoring.
+- **Tracking vs one-shot queries:** Tracking sets up continuous data collection for more comprehensive results. One-shot queries (like `getTwitterPostsByKeywords`) search existing cached data and may miss recent activity. Track items you care about for ongoing, complete data; use one-shot queries for ad-hoc research.
+- **Data completeness:** Tracked items are crawled regularly, giving you more comprehensive data than untracked queries. This is especially impactful for fast-moving topics or competitive monitoring.
 - **Data availability:** Tracked data accumulates over time. New tracked items won't have historical data — they start collecting from when you add them.
 
 ## See Also

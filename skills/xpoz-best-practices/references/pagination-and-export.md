@@ -22,8 +22,8 @@ All paginated tools support three response modes via the `responseType` paramete
 | Mode   | Value              | Behavior                                                                     | Best For                                    |
 | ------ | ------------------ | ---------------------------------------------------------------------------- | ------------------------------------------- |
 | Fast   | `"fast"` (default) | Returns up to 300 results immediately in a single response                   | Quick lookups, exploration, small datasets  |
-| Paging | `"paging"`         | Async operation — returns an `operationId`, poll with `checkOperationStatus` | Large datasets, page-by-page iteration      |
-| CSV    | `"csv"`            | Async S3 export — returns a download URL when complete                       | Bulk export, offline analysis, spreadsheets |
+| Paging | `"paging"`         | Async operation — returns an `operationId`, poll with `checkOperationStatus`. SDKs and CLI handle polling automatically | Large datasets, page-by-page iteration      |
+| CSV    | `"csv"`            | Async S3 export — returns a download URL when complete. SDKs and CLI handle polling automatically                       | Bulk export, offline analysis, spreadsheets |
 
 
 ### Fast Mode (default)

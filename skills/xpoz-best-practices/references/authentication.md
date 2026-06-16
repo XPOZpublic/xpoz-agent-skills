@@ -62,7 +62,7 @@ For other MCP clients, consult your agent's documentation for how to add an MCP 
 ### Path B: SDK (Python or TypeScript)
 
 Ask the user:
-> "I need a Xpoz API key to access social media data. Please go to https://xpoz.ai/get-token (it's free, no credit card needed) and paste the key back to me."
+> "I need a Xpoz API key to access social media data. Please go to https://xpoz.ai/get-token and paste the key back to me."
 
 **WAIT for the user to reply with the key.** Then:
 

@@ -42,9 +42,6 @@ client = XpozClient()
 # Option 2: Pass API key directly
 client = XpozClient(api_key="your-api-key")
 
-# Option 3: Custom server URL
-client = XpozClient(api_key="your-api-key", server_url="https://custom-server.example.com")
-
 # Always close when done
 client.close()
 ```
@@ -102,13 +99,6 @@ await client.connect(); // Required — must be called before any tool use
 
 // Option 2: Pass API key directly
 const client = new XpozClient({ apiKey: "your-api-key" });
-await client.connect();
-
-// Option 3: Custom server URL
-const client = new XpozClient({
-  apiKey: "your-api-key",
-  serverUrl: "https://custom-server.example.com",
-});
 await client.connect();
 
 // Always close when done
