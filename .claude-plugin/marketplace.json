@@ -1,0 +1,58 @@
+{
+  "name": "xpoz-plugins",
+  "owner": {
+    "name": "Xpoz",
+    "email": "support@xpoz.ai"
+  },
+  "metadata": {
+    "description": "Official Xpoz plugin for Claude Code - social media intelligence across Twitter/X, Instagram, Reddit, and TikTok",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "xpoz",
+      "source": "./",
+      "description": "Social media intelligence powered by Xpoz. Search, analyze, and export data from Twitter/X, Instagram, Reddit, and TikTok. Includes 9 skills: best practices reference for query syntax, pagination, field selection and all platform tools; getting started onboarding and setup; social tracking for continuous keyword/user/hashtag monitoring; sentiment analysis across platforms; Twitter data export to CSV (up to 500K rows); influencer discovery and ranking; Reddit discussion research; competitive intelligence and brand comparison; security OSINT and threat monitoring.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Xpoz",
+        "email": "support@xpoz.ai",
+        "url": "https://xpoz.ai"
+      },
+      "homepage": "https://xpoz.ai",
+      "repository": "https://github.com/XPOZpublic/xpoz-agent-skills",
+      "license": "MIT",
+      "keywords": [
+        "social-media",
+        "twitter",
+        "instagram",
+        "reddit",
+        "tiktok",
+        "social-intelligence",
+        "social-analytics",
+        "social-media-analytics",
+        "sentiment-analysis",
+        "influencer-discovery",
+        "competitive-intelligence",
+        "osint",
+        "social-listening",
+        "brand-monitoring",
+        "data-export",
+        "csv",
+        "mcp",
+        "python-sdk",
+        "typescript-sdk"
+      ],
+      "category": "external-integrations",
+      "tags": [
+        "social-media",
+        "social-analytics",
+        "data-retrieval",
+        "sentiment-analysis",
+        "competitive-intelligence",
+        "osint",
+        "social-listening"
+      ]
+    }
+  ]
+}
