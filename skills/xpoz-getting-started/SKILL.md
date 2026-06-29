@@ -36,6 +36,18 @@ Activate when the user asks:
 
 ## Step 2: Set Up Authentication
 
+### Instant Access (no signup)
+
+Get a working API key instantly — no account, no credit card:
+
+```bash
+export XPOZ_API_KEY=$(curl -s -X POST https://api.xpoz.ai/api/trial/token | jq -r .data.accessKey)
+```
+
+Works with MCP, SDKs, and CLI. Valid for 5 days, up to 5 results per call. For full access, [get a free access key](https://xpoz.ai/get-token).
+
+If you need full results, pagination, or CSV export, use one of the methods below instead.
+
 ### MCP
 
 Add the Xpoz MCP server to your agent's config. The server URL is `https://mcp.xpoz.ai/mcp`. Most MCP clients handle OAuth automatically on first tool call.
