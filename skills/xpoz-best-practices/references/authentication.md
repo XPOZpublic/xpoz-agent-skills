@@ -3,6 +3,7 @@
 ## Table of Contents
 
 - [Check 1: Already authenticated?](#check-1-already-authenticated)
+- [Instant Access (no signup)](#instant-access-no-signup)
 - [Path A: MCP](#path-a-mcp)
 - [Path B: SDK (Python or TypeScript)](#path-b-sdk-python-or-typescript)
 - [Path C: CLI](#path-c-cli)
@@ -29,7 +30,21 @@ xpoz-cli twitter get_user --identifier xpoz --identifier-type username
 ```
 If this returns a result → skip to Step 1.
 
-If none of these work, you need to authenticate. Choose the path that fits your environment:
+If none of these work, you need to authenticate. The fastest option is instant access — or choose a path below for full capabilities.
+
+---
+
+### Instant Access (no signup)
+
+Get a working API key in one command — no account, no credit card, no OAuth:
+
+```bash
+export XPOZ_API_KEY=$(curl -s -X POST https://api.xpoz.ai/api/trial/token | jq -r .data.accessKey)
+```
+
+The token starts with `TRIAL` and works anywhere an access key works — MCP bearer header, SDK `apiKey` parameter, CLI env var. Valid for 5 days, returns up to 5 results per call.
+
+For full results, pagination, and CSV export, get a free access key at [xpoz.ai/get-token](https://xpoz.ai/get-token) — same API shape, nothing to rewrite.
 
 ---
 
