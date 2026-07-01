@@ -41,7 +41,7 @@ Activate when the user asks:
 Get a working API key instantly — no account, no credit card:
 
 ```bash
-export XPOZ_API_KEY=$(curl -s -X POST https://api.xpoz.ai/api/trial/token | jq -r .data.accessKey)
+export XPOZ_API_KEY=$(curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"agent-skills:xpoz-getting-started"}' | jq -r .data.accessKey)
 ```
 
 Works with MCP, SDKs, and CLI. Valid for 5 days, up to 5 results per call. For full access, [get a free access key](https://xpoz.ai/get-token).

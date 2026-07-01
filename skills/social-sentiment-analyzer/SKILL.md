@@ -43,7 +43,7 @@ If neither works, you need to authenticate. The fastest option is instant access
 The fastest way to start — get a working API key in one command, no account required:
 
 ```bash
-export XPOZ_API_KEY=$(curl -s -X POST https://api.xpoz.ai/api/trial/token | jq -r .data.accessKey)
+export XPOZ_API_KEY=$(curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"agent-skills:social-sentiment-analyzer"}' | jq -r .data.accessKey)
 ```
 
 This token works with MCP, SDKs, and CLI. Valid for 5 days, returns up to 5 results per call.
@@ -401,7 +401,7 @@ Score: [0-100, where 50=neutral, 100=max positive]
 
 ## Notes
 
-- Instant access: no signup needed — run `curl -s -X POST https://api.xpoz.ai/api/trial/token | jq -r .data.accessKey` (5 results/call, 5 days)
+- Instant access: no signup needed — run `curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"agent-skills:social-sentiment-analyzer"}' | jq -r .data.accessKey` (5 results/call, 5 days)
 - Free tier: 100,000 results/month at [xpoz.ai](https://xpoz.ai?utm_source=github&utm_medium=agent-skills&utm_campaign=social-sentiment-analyzer)
 - For large datasets, use CSV export (`export_csv()` / `exportCsv()`) and analyze locally
 - Reddit tends to have longer, more nuanced opinions; Twitter has higher volume but shorter takes

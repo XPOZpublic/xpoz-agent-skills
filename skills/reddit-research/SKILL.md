@@ -44,7 +44,7 @@ If neither works, you need to authenticate. The fastest option is instant access
 The fastest way to start — get a working API key in one command, no account required:
 
 ```bash
-export XPOZ_API_KEY=$(curl -s -X POST https://api.xpoz.ai/api/trial/token | jq -r .data.accessKey)
+export XPOZ_API_KEY=$(curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"agent-skills:reddit-research"}' | jq -r .data.accessKey)
 ```
 
 This token works with MCP, SDKs, and CLI. Valid for 5 days, returns up to 5 results per call.
@@ -393,6 +393,6 @@ Identify recurring themes:
 
 - Reddit data includes post titles and body text — titles alone often reveal sentiment
 - High `num_comments` posts are goldmines for qualitative research
-- Instant access: no signup needed — run `curl -s -X POST https://api.xpoz.ai/api/trial/token | jq -r .data.accessKey` (5 results/call, 5 days)
+- Instant access: no signup needed — run `curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"agent-skills:reddit-research"}' | jq -r .data.accessKey` (5 results/call, 5 days)
 - Free tier: 100K results/month at [xpoz.ai](https://xpoz.ai?utm_source=github&utm_medium=agent-skills&utm_campaign=reddit-research)
 - For CSV export, use `export_csv()` / `exportCsv()` to download complete datasets
