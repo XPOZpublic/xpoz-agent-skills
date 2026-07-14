@@ -1,6 +1,6 @@
 # Xpoz Agent Skills
 
-Agent skills for social media intelligence, powered by [Xpoz](https://xpoz.ai?utm_source=github&utm_medium=agent-skills&utm_campaign=readme). Give your AI coding agent real-time access to Twitter/X, Instagram, Reddit, and TikTok data — 1.5B+ posts indexed.
+Agent skills for social media intelligence, powered by [Xpoz](https://xpoz.ai?utm_source=github&utm_medium=agent-skills&utm_campaign=readme). Give your AI coding agent real-time access to Twitter/X, Instagram, Reddit, and TikTok data — billions of posts indexed.
 
 Compatible with **Claude Code**, **OpenAI Codex CLI**, **ChatGPT**, and any agent that supports the [SKILL.md](https://github.com/anthropics/skills) standard.
 
@@ -81,7 +81,7 @@ export XPOZ_API_KEY=your-api-key
 ## 📊 What Xpoz Provides
 
 - **Multi-platform**: Twitter/X, Instagram, Reddit, TikTok
-- **1.5B+ posts** indexed and searchable
+- **Billions of posts** indexed and searchable
 - **Natural language queries** with boolean operators
 - **CSV exports** up to 500K rows in one download
 - **User intelligence**: profiles, followers, engagement metrics, authenticity scoring
