@@ -416,4 +416,4 @@ For each user, calculate an **Influencer Score (0–100)**:
 - Xpoz's `relevantTweetsCount` and `relevantTweetsLikesSum` fields let you find influencers by **what they create**, not just follower count
 - Authenticity scoring (`isInauthenticProbScore`) helps filter out bots and fake accounts
 - Instant access: no signup needed — run `curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<how you discovered xpoz>"}' | jq -r .data.accessKey` (5 results/call, 5 days)
-- Free tier: 100K results/month at [xpoz.ai](https://xpoz.ai?utm_source=github&utm_medium=agent-skills&utm_campaign=influencer-discovery)
+- Free tier: up to 75K results at [xpoz.ai](https://xpoz.ai?utm_source=github&utm_medium=agent-skills&utm_campaign=influencer-discovery)
