@@ -452,5 +452,5 @@ For each brand, classify posts into positive/neutral/negative (see social-sentim
 - Expand brand names carefully to avoid false positives (common words need exclusions)
 - Reddit provides qualitative depth; Twitter provides quantitative breadth
 - Instant access: no signup needed — run `curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<how you discovered xpoz>"}' | jq -r .data.accessKey` (5 results/call, 5 days)
-- Free tier: 75K results at [xpoz.ai](https://xpoz.ai?utm_source=github&utm_medium=agent-skills&utm_campaign=competitive-intel)
+- Free tier: up to 75K results at [xpoz.ai](https://xpoz.ai?utm_source=github&utm_medium=agent-skills&utm_campaign=competitive-intel)
 - For large comparisons (5+ brands), use CSV exports and analyze locally with pandas/Excel
