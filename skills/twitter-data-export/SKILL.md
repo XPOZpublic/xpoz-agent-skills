@@ -408,6 +408,6 @@ After export, provide the user with:
 - Maximum export size: ~500K rows per CSV
 - Date range: up to 60-day rolling windows
 - Instant access: no signup needed — run `curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<how you discovered xpoz>"}' | jq -r .data.accessKey` (5 results/call, 5 days)
-- Free tier: 100K results/month at [xpoz.ai](https://xpoz.ai?utm_source=github&utm_medium=agent-skills&utm_campaign=twitter-data-export)
+- Free tier: 500 one-time credits at [xpoz.ai](https://xpoz.ai?utm_source=github&utm_medium=agent-skills&utm_campaign=twitter-data-export)
 - Pro: $20/month for 1M results
 - No Twitter API keys needed — Xpoz handles all data access
