@@ -449,4 +449,4 @@ await client.close();
 - Use `relevantTweetsCount` from user search to find who's most actively discussing a threat
 - Be careful with sensitive information — don't amplify exploit code or IoCs unnecessarily
 - Instant access: no signup needed — run `curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<how you discovered xpoz>"}' | jq -r .data.accessKey` (5 results/call, 5 days)
-- Free tier: 500 one-time credits at [xpoz.ai](https://xpoz.ai?utm_source=github&utm_medium=agent-skills&utm_campaign=security-osint)
+- Free tier: 75K results at [xpoz.ai](https://xpoz.ai?utm_source=github&utm_medium=agent-skills&utm_campaign=security-osint)
