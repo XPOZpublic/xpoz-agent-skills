@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/xpozpublic-xpoz-agent-skills-badge.png)](https://mseep.ai/app/xpozpublic-xpoz-agent-skills)
+
 # Xpoz Agent Skills
 
 Agent skills for social media intelligence, powered by [Xpoz](https://xpoz.ai?utm_source=github&utm_medium=agent-skills&utm_campaign=readme). Give your AI coding agent real-time access to Twitter/X, Instagram, Reddit, and TikTok data — billions of posts indexed.
