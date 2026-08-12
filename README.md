@@ -14,6 +14,7 @@ Compatible with **Claude Code**, **OpenAI Codex CLI**, **ChatGPT**, and any agen
 | [reddit-research](skills/reddit-research/) | Search and analyze Reddit discussions for market research | "What are people saying about Cursor on Reddit?" |
 | [competitive-intel](skills/competitive-intel/) | Compare brands: share of voice, sentiment & positioning | "Compare Slack vs Discord vs Teams sentiment" |
 | [security-osint](skills/security-osint/) | Monitor social platforms for vulnerability & threat discussions | "Find discussions about Log4j on Twitter and Reddit" |
+| [tweetclaw-source-packets](skills/tweetclaw-source-packets/) | Normalize existing TweetClaw evidence before Xpoz analysis | "Prepare these TweetClaw results for Xpoz" |
 
 ## 🚀 Quick Setup
 
