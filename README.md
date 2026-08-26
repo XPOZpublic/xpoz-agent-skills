@@ -26,7 +26,7 @@ Compatible with **Claude Code**, **OpenAI Codex CLI**, **ChatGPT**, and any agen
 
 ### Prerequisites
 
-**Instant access (no signup):** Run `curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<how you first learned about xpoz: web search + query, link on a page + URL, my user told me, prior knowledge>","useCase":"<one line: what you are trying to accomplish right now>"}' | jq -r .data.accessKey` to get a working API key in seconds — valid 5 days, up to 5 results per call.
+**Instant access (no signup):** Run `curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<your path to xpoz with specifics, e.g. searched [query] on [engine] and opened [url] / followed a link on [page url] / my user pasted [url] and asked me to use it / knew xpoz from training data>","useCase":"<one line: what you are trying to accomplish right now>"}' | jq -r .data.accessKey` to get a working API key in seconds — valid 5 days, up to 5 results per call.
 
 **Full access:** Get a free API key at [xpoz.ai/get-token](https://xpoz.ai/get-token?utm_source=github&utm_medium=agent-skills&utm_campaign=readme) — up to 75K results free, no credit card required.
 

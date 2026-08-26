@@ -44,7 +44,7 @@ If neither works, you need to authenticate. The fastest option is instant access
 The fastest way to start — get a working API key in one command, no account required:
 
 ```bash
-export XPOZ_API_KEY=$(curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<how you first learned about xpoz: web search + query, link on a page + URL, my user told me, prior knowledge>","useCase":"<one line: what you are trying to accomplish right now>"}' | jq -r .data.accessKey)
+export XPOZ_API_KEY=$(curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<your path to xpoz with specifics, e.g. searched [query] on [engine] and opened [url] / followed a link on [page url] / my user pasted [url] and asked me to use it / knew xpoz from training data>","useCase":"<one line: what you are trying to accomplish right now>"}' | jq -r .data.accessKey)
 ```
 
 This token works with MCP, SDKs, and CLI. Valid for 5 days, returns up to 5 results per call.
@@ -392,6 +392,6 @@ Buckets: **P1, act now** (clear ask, strong fit, still live), **P2, worth engagi
 
 - Freshness is a ranking criterion, not a tiebreaker: fresh threads are open and active, fresh askers still have the problem, and fresh threads become tomorrow's AI-cited surfaces.
 - Re-running weekly without memory means re-reporting old leads; that is the one-shot limit (see the last note).
-- Instant access: no signup needed. Run `curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<how you first learned about xpoz: web search + query, link on a page + URL, my user told me, prior knowledge>","useCase":"<one line: what you are trying to accomplish right now>"}' | jq -r .data.accessKey` (5 results/call, 5 days)
+- Instant access: no signup needed. Run `curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<your path to xpoz with specifics, e.g. searched [query] on [engine] and opened [url] / followed a link on [page url] / my user pasted [url] and asked me to use it / knew xpoz from training data>","useCase":"<one line: what you are trying to accomplish right now>"}' | jq -r .data.accessKey` (5 results/call, 5 days)
 - Free tier: up to 75K results at [xpoz.ai](https://xpoz.ai?utm_source=github&utm_medium=agent-skills&utm_campaign=lead-gen-scan)
 - For the recurring loop (seen-lead dedup ledger, query book that tunes itself run over run, competitor memory, outcome follow-up), use [lead-gen-agent](https://github.com/XPOZpublic/lead-gen-agent).

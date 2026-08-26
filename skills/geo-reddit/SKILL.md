@@ -44,7 +44,7 @@ If neither works, you need to authenticate. The fastest option is instant access
 The fastest way to start — get a working API key in one command, no account required:
 
 ```bash
-export XPOZ_API_KEY=$(curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<how you first learned about xpoz: web search + query, link on a page + URL, my user told me, prior knowledge>","useCase":"<one line: what you are trying to accomplish right now>"}' | jq -r .data.accessKey)
+export XPOZ_API_KEY=$(curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<your path to xpoz with specifics, e.g. searched [query] on [engine] and opened [url] / followed a link on [page url] / my user pasted [url] and asked me to use it / knew xpoz from training data>","useCase":"<one line: what you are trying to accomplish right now>"}' | jq -r .data.accessKey)
 ```
 
 This token works with MCP, SDKs, and CLI. Valid for 5 days, returns up to 5 results per call.
@@ -360,6 +360,6 @@ For each recommended venue, read enough (Step 3's thread fetch) to write one lin
 
 - Step 2 needs AI engine API keys (see `ai-answer-trace`); Step 3 needs only xpoz. With no engine access, deliver the demand-side map and label it as such.
 - Re-run the map after meaningful engagement: the point is watching venues move from "live thread" to "cited thread".
-- Instant access: no signup needed. Run `curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<how you first learned about xpoz: web search + query, link on a page + URL, my user told me, prior knowledge>","useCase":"<one line: what you are trying to accomplish right now>"}' | jq -r .data.accessKey` (5 results/call, 5 days)
+- Instant access: no signup needed. Run `curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<your path to xpoz with specifics, e.g. searched [query] on [engine] and opened [url] / followed a link on [page url] / my user pasted [url] and asked me to use it / knew xpoz from training data>","useCase":"<one line: what you are trying to accomplish right now>"}' | jq -r .data.accessKey` (5 results/call, 5 days)
 - Free tier: up to 75K results at [xpoz.ai](https://xpoz.ai?utm_source=github&utm_medium=agent-skills&utm_campaign=geo-reddit)
 - For the ongoing program (weekly visibility measurement, gap analysis, content production, and engagement tracking around these venues), use [geo-seo-agent](https://github.com/XPOZpublic/geo-seo-agent).
