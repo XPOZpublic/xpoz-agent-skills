@@ -245,7 +245,7 @@ Call getRedditPostsByKeywords:
 
 **CRITICAL:** Call `checkOperationStatus` with the returned `operationId` and poll until "completed" (up to 8 retries, ~5 seconds apart). Repeat with `getTwitterPostsByKeywords` for the developer/founder conversation.
 
-3. **Derived**: phrase the product's jobs-to-be-done as assistant questions ("best [category] for [persona]", "how do I [job]", "[incumbent] alternatives", "how much does [category thing] cost").
+3. **Derived**: phrase the product's jobs-to-be-done as assistant questions ("best [category] for [persona]", "how do I [job]", "[current tool] alternatives", "how much does [category thing] cost").
 
 Balance the panel across intents: category ("best X"), comparison ("X vs Y", "X alternatives"), problem-solution ("how do I..."), and pricing. Confirm the panel with the user before spending engine calls on it.
 

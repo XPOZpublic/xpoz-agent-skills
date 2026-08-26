@@ -232,7 +232,7 @@ export XPOZ_API_KEY=THE_KEY_FROM_USER
 
 Extract, asking the user for whatever is missing:
 - **Product** and what it does (one sentence is enough)
-- **Competitors and incumbent workarounds** (the frustrated users of both are the second lead source; the workaround people used before tools like this existed counts, e.g. manual spreadsheets, an official API, an agency)
+- **Competitors, and what people use instead of buying a tool at all** (the frustrated users of both are the second lead source; manual spreadsheets, an official API, an agency all count)
 - **Platforms** to scan (default: all four)
 - **Window** (default: the last 7 days)
 
@@ -241,7 +241,7 @@ Extract, asking the user for whatever is missing:
 Two search motions, both run every scan:
 
 1. **Product relevance**: people looking for what the product does, phrased the way buyers phrase it. Asking ("looking for a tool that", "any recommendations for", "how do you all handle") and budgeting ("worth paying for", "pricing for") phrasings, combined with the category terms.
-2. **Competitor disappointment**: people frustrated with the alternatives. Switching ("[competitor] alternative", "moving away from"), struggling ("[competitor] not working", "[competitor] pricing increase"), and evaluating ("[competitor] vs") phrasings, for each competitor and incumbent workaround.
+2. **Competitor disappointment**: people frustrated with the alternatives. Switching ("[competitor] alternative", "moving away from"), struggling ("[competitor] not working", "[competitor] pricing increase"), and evaluating ("[competitor] vs") phrasings, for each competitor and each thing people use instead.
 
 Build OR-joined query strings per bucket, e.g. `"looking for a social listening tool" OR "brand monitoring recommendations" OR "how do you track mentions"`.
 

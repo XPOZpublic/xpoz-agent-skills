@@ -233,7 +233,7 @@ export XPOZ_API_KEY=THE_KEY_FROM_USER
 Extract:
 - **Brand/product** and its category
 - **Competitors** (ask if not given; competitor-winning answers are prime evidence)
-- **Target prompts**: 3-8 questions buyers ask AI engines where the brand should appear. If the user has none, derive a starter set: take the problems the product solves and phrase them as a buyer would ask an assistant ("best [category] tool for [persona]", "how do I [job to be done]", "[incumbent] alternatives")
+- **Target prompts**: 3-8 questions buyers ask AI engines where the brand should appear. If the user has none, derive a starter set: take the problems the product solves and phrase them as a buyer would ask an assistant ("best [category] tool for [persona]", "how do I [job to be done]", "[current tool] alternatives")
 
 ### Step 2: Trace the Engine Citations (the primary evidence)
 
