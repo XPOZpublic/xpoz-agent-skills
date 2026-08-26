@@ -63,7 +63,7 @@ Add to your `~/.claude.json`:
 }
 ```
 
-Authentication is handled via OAuth on first use — no API keys needed in the config. Just sign in with your Google account when prompted.
+Authentication is handled via OAuth on first use, no API keys needed in the config. Just sign in when prompted with the same account that holds your free access key.
 
 If using **mcporter** (included with OpenClaw):
 ```bash

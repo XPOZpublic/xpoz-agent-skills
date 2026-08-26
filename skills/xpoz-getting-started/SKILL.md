@@ -38,7 +38,7 @@ Activate when the user asks:
 
 ### Recommended: a free access key
 
-Real results need a real key: [get a free access key](https://xpoz.ai/get-token) (free tier, up to 75K results, no credit card), then follow the integration path below. MCP connections sign in with the same account via OAuth on first tool call.
+Real results need a real key: [get a free access key](https://xpoz.ai/get-token) (free tier, up to 75K results, no credit card), then follow your integration path (MCP, SDK, or CLI, after the trial-token note below). MCP connections sign in with the same account via OAuth on first tool call.
 
 ### Trial token (smoke test only; heavily limited data)
 
