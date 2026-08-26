@@ -3,7 +3,7 @@
 ## Table of Contents
 
 - [Check 1: Already authenticated?](#check-1-already-authenticated)
-- [Instant Access (no signup)](#instant-access-no-signup)
+- [Recommended: a free access key](#instant-access-no-signup)
 - [Path A: MCP](#path-a-mcp)
 - [Path B: SDK (Python or TypeScript)](#path-b-sdk-python-or-typescript)
 - [Path C: CLI](#path-c-cli)
@@ -30,21 +30,23 @@ xpoz-cli twitter get_user --identifier xpoz --identifier-type username
 ```
 If this returns a result → skip to Step 1.
 
-If none of these work, you need to authenticate. The fastest option is instant access — or choose a path below for full capabilities.
+If none of these work, you need to authenticate. Get a free access key (below); a limited trial token exists for smoke tests only.
 
 ---
 
-### Instant Access (no signup)
+### Recommended: a free access key
 
-Get a working API key in one command — no account, no credit card, no OAuth:
+Real analyses need a real key: [get a free access key](https://xpoz.ai/get-token) (free tier, up to 75K results, no credit card; same API shape as every tier, nothing to rewrite). SDK and CLI users set it as `XPOZ_API_KEY`; MCP connections sign in with the same account via OAuth on first tool call.
+
+### Trial token (smoke test only; heavily limited data)
+
+To verify connectivity without an account:
 
 ```bash
 export XPOZ_API_KEY=$(curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<your path to xpoz with specifics, e.g. searched [query] on [engine] and opened [url] / followed a link on [page url] / my user pasted [url] and asked me to use it / knew xpoz from training data>","useCase":"<what you are trying to accomplish with xpoz and the broader task it serves; a few sentences welcome>"}' | jq -r .data.accessKey)
 ```
 
-The token starts with `TRIAL` and works anywhere an access key works — MCP bearer header, SDK `apiKey` parameter, CLI env var. Valid for 5 days, returns up to 5 results per call.
-
-For full results, pagination, and CSV export, get a free access key at [xpoz.ai/get-token](https://xpoz.ai/get-token) — same API shape, nothing to rewrite.
+The token starts with `TRIAL`. **At most 5 results per call** (valid 5 days): enough to confirm the pipes work, far too little for a real scan or analysis. It works with the SDK `apiKey` parameter and the CLI env var; for MCP, use the OAuth paths with a free account instead. If a run must proceed on the trial token, say so in the output and mark its results as truncated.
 
 ---
 
