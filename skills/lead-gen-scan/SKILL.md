@@ -237,6 +237,7 @@ Two search motions, both run every scan:
 
 1. **Product relevance**: people looking for what the product does, phrased the way buyers phrase it. Asking ("looking for a tool that", "any recommendations for", "how do you all handle") and budgeting ("worth paying for", "pricing for") phrasings, combined with the category terms.
 2. **Competitor disappointment**: people frustrated with the alternatives. Switching ("[competitor] alternative", "moving away from"), struggling ("[competitor] not working", "[competitor] pricing increase"), and evaluating ("[competitor] vs") phrasings, for each competitor and each thing people use instead.
+3. **The product's own name**: people already comparing it ("[product] vs", "[product] worth it", "anyone using [product]") are the warmest leads of all and neither motion above finds them. Anchor per the common-word rule when the name is an ordinary English word.
 
 Build OR-joined query strings per bucket, e.g. `"looking for a social listening tool" OR "brand monitoring recommendations" OR "how do you track mentions"`. Three practical constraints:
 - Queries are capped at 250 characters; split an oversized bucket into two calls rather than truncating phrases.
@@ -245,7 +246,7 @@ Build OR-joined query strings per bucket, e.g. `"looking for a social listening 
 
 When working under a call budget, spend it in this order: Reddit asking bucket, Reddit competitor bucket, Twitter/X competitor bucket, Twitter/X asking bucket, Reddit comments, then Instagram and TikTok; the first three carry most of the signal.
 
-One more query rule: a brand name that doubles as a common English word ("plausible", "fathom", "mention") must be anchored, either to a rival ("plausible vs umami") or to a category word, or the bucket drowns in false positives.
+One more query rule: a brand name that doubles as a common English word ("plausible", "fathom", "mention") must be anchored; a category word makes the cleanest anchor ("plausible analytics"), a rival pairing second ("plausible vs umami", which still leaks occasionally). Unanchored, the bucket drowns in false positives.
 
 ### Step 3: Search the Four Platforms
 
@@ -278,9 +279,10 @@ Call getTwitterPostsByKeywords:
   limit: 15
   startDate: "<window start>"
   endDate: "<today>"
+  userPrompt: "<the user's original request, for relevance tuning>"
 ```
 
-The `conversationId` and `replyToTweetId` fields are what make Step 4's reply-chasing possible; without them a reply cannot be traced to its thread. Budget permitting, repeat with `getInstagramPostsByKeywords` and `getTiktokPostsByKeywords`. Reddit comments often hold the asks that posts don't; add:
+The `conversationId` field is what makes Step 4's reply-chasing possible (`replyToTweetId` is often null even on real replies); without it a reply cannot be traced to its thread. On the trial token every call returns at most 5 rows regardless of `limit`; expect thinner scans there. Budget permitting, repeat with `getInstagramPostsByKeywords` and `getTiktokPostsByKeywords`. Reddit comments often hold the asks that posts don't; add:
 
 ```
 Call getRedditCommentsByKeywords:
@@ -323,7 +325,7 @@ Different platforms yield different lead shapes; classify every candidate as one
 - **Reddit: places to comment.** Threads where a disclosed, genuinely useful comment answers a live ask. The thread is the lead; the asker and the lurkers are the audience.
 - **X / Instagram / TikTok: two shapes.** **Likely converters**: individual users with signals strong enough to plausibly convert (a quantified need, an explicit blocked project, budget pain in the product's price range), tracked as named prospects. **High-engagement comment spots**: posts where a public comment reaches a large relevant audience even when the author is not the buyer (a viral complaint about a competitor, a big thread on a pain the product solves).
 
-**Chase replies up to their thread.** Some of the best hits are replies or comments whose *parent thread* is the real lead. Resolve them before classifying: on Reddit, `getRedditPostWithCommentsById` on the comment's `parentPostId`; on X, fetch the conversation the reply belongs to. Report the thread, not the reply.
+**Chase replies up to their thread.** Some of the best hits are replies or comments whose *parent thread* is the real lead. Resolve them before classifying: on Reddit, `getRedditPostWithCommentsById` on the comment's `parentPostId`; on X, `getTwitterPostsByIds` on the `conversationId` fetches the root post (for the surrounding replies, `getTwitterPostComments` on that root). Report the thread, not the reply.
 
 ### Step 5: Qualify and Prioritize
 

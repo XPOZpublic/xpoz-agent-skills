@@ -70,7 +70,7 @@ Extract:
 
 ### Step 2: Save and Run the Trace Scripts
 
-Save each script below to the working directory, then run one command per sample, redirecting stdout to a numbered JSON file (`claude-1.json`, `claude-2.json`, ...). Progress notes go to stderr, the trace JSON to stdout.
+Save each script below to the working directory, then run one command per sample, redirecting stdout to a numbered JSON file (`claude-1.json`, `claude-2.json`, ...). The trace JSON goes to stdout; stderr carries only dependency-install lines and the benign Gemini warning.
 
 These scripts are minimal derivatives of the full-strength recorders in [geo-seo-agent](https://github.com/XPOZpublic/geo-seo-agent); the originals add batch panels, sampling infrastructure, and transcript archives.
 
@@ -232,10 +232,10 @@ def main():
             if not queries and single_query:
                 queries = [single_query]
             results = [
-                {"url": getattr(s, "url", ""), "title": getattr(s, "title", None) or ""}
+                {"url": (getattr(s, "url", "") or "").split("?utm_source=openai")[0], "title": getattr(s, "title", None) or ""}
                 for s in getattr(action, "sources", None) or []
             ]
-            if queries:
+            if queries or results:
                 searches.append({"queries": queries, "results": dedupe_by_url(results)})
         elif item.type == "message":
             for content in item.content:
@@ -426,7 +426,7 @@ if __name__ == "__main__":
 
 Engine-specific notes baked into these scripts, so you do not rediscover them the hard way:
 - **Gemini** returns grounding URLs as Google redirect links that expire within days; the script resolves every one to its real destination at capture time, falling back to `https://<domain>/` when resolution fails (the fallback leans on Gemini's titles being bare domains today; the `"." in domain` guard keeps a real title from becoming a bogus URL). A google-genai AFC deprecation warning on stderr is benign.
-- **ChatGPT** only reveals retrieved sources when asked via `include=["web_search_call.action.sources"]`, and its URLs carry a `?utm_source=openai` tracking suffix, so the same page can appear once with it and once without; strip it before comparing cited URLs against retrieved URLs. Domain counting is unaffected (the aggregator parses the host and ignores query strings).
+- **ChatGPT** only reveals retrieved sources when asked via `include=["web_search_call.action.sources"]`, and its URLs carry a `?utm_source=openai` tracking suffix, so the same page can appear once with it and once without; the script strips it from retrieved sources at capture time, and cited URLs keep it (strip before exact-URL comparisons). Domain counting is unaffected (the aggregator parses the host and ignores query strings).
 - **Claude** scatters citations across content blocks; the script reassembles them in answer order.
 
 ### Step 3: Aggregate Cited Domains
