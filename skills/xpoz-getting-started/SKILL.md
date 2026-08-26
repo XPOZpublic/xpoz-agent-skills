@@ -195,6 +195,10 @@ See [xpoz-social-tracking](../xpoz-social-tracking/SKILL.md) for advanced tracki
 | Analyze sentiment | [social-sentiment-analyzer](../social-sentiment-analyzer/SKILL.md) |
 | Research Reddit discussions | [reddit-research](../reddit-research/SKILL.md) |
 | Monitor security threats | [security-osint](../security-osint/SKILL.md) |
+| See what AI engines cite | [ai-answer-trace](../ai-answer-trace/SKILL.md) |
+| Check my brand's AI visibility | [geo-visibility-check](../geo-visibility-check/SKILL.md) |
+| Get cited by AI via Reddit | [geo-reddit](../geo-reddit/SKILL.md) |
+| Find buying-intent leads | [lead-gen-scan](../lead-gen-scan/SKILL.md) |
 | Track keywords/users | [xpoz-social-tracking](../xpoz-social-tracking/SKILL.md) |
 | Learn Xpoz patterns | [xpoz-best-practices](../xpoz-best-practices/SKILL.md) |
 

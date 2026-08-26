@@ -12,7 +12,7 @@
     {
       "name": "xpoz",
       "source": "./",
-      "description": "Social media intelligence powered by Xpoz. Search, analyze, and export data from Twitter/X, Instagram, Reddit, and TikTok. Includes 9 skills: best practices reference for query syntax, pagination, field selection and all platform tools; getting started onboarding and setup; social tracking for continuous keyword/user/hashtag monitoring; sentiment analysis across platforms; Twitter data export to CSV (up to 500K rows); influencer discovery and ranking; Reddit discussion research; competitive intelligence and brand comparison; security OSINT and threat monitoring.",
+      "description": "Social media intelligence powered by Xpoz. Search, analyze, and export data from Twitter/X, Instagram, Reddit, and TikTok. Includes 13 skills: best practices reference for query syntax, pagination, field selection and all platform tools; getting started onboarding and setup; social tracking for continuous keyword/user/hashtag monitoring; sentiment analysis across platforms; Twitter data export to CSV (up to 500K rows); influencer discovery and ranking; Reddit discussion research; competitive intelligence and brand comparison; security OSINT and threat monitoring; AI answer tracing (the searches, retrieved pages, and cited sources behind Claude, ChatGPT, and Gemini answers); GEO visibility checking (where a brand appears in AI answers and who wins instead); GEO Reddit influence mapping (the subreddits and threads AI engines cite); buying-intent lead scanning across the four platforms.",
       "version": "1.0.0",
       "author": {
         "name": "Xpoz",
@@ -39,6 +39,11 @@
         "brand-monitoring",
         "data-export",
         "csv",
+        "geo",
+        "generative-engine-optimization",
+        "ai-visibility",
+        "ai-citations",
+        "lead-generation",
         "mcp",
         "python-sdk",
         "typescript-sdk"
