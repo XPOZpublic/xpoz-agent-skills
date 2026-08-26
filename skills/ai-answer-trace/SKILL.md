@@ -232,7 +232,7 @@ def main():
             if not queries and single_query:
                 queries = [single_query]
             results = [
-                {"url": (getattr(s, "url", "") or "").split("?utm_source=openai")[0], "title": getattr(s, "title", None) or ""}
+                {"url": (getattr(s, "url", "") or "").replace("&utm_source=openai", "").replace("?utm_source=openai", ""), "title": getattr(s, "title", None) or ""}
                 for s in getattr(action, "sources", None) or []
             ]
             if queries or results:
@@ -515,7 +515,7 @@ Read the trace JSONs, not just the domain counts:
 [3-5 bullets: which surfaces win this question, where the subject is absent, what would change the answer]
 ```
 
-When no brand was named in the request, replace the "Mentions [BRAND]?" column with "Top recommendation" and shape the citation-paths section around the winners instead.
+When no brand was named in the request, replace the "Mentions [BRAND]?" column with "Top recommendation" and shape the citation-paths section around the winners instead. When a brand was named but is absent everywhere, state the absence once as the headline and shape the citation-paths section around the winners the same way. When the run used fewer samples than the 2-3 minimum, say so in the report header and label single-sample citations as indicative.
 
 ## If You Can't Run the Scripts
 
