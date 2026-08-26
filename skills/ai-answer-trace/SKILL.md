@@ -425,7 +425,7 @@ if __name__ == "__main__":
 ```
 
 Engine-specific notes baked into these scripts, so you do not rediscover them the hard way:
-- **Gemini** returns grounding URLs as Google redirect links that expire within days; the script resolves every one to its real destination at capture time, falling back to `https://<domain>/` when resolution fails.
+- **Gemini** returns grounding URLs as Google redirect links that expire within days; the script resolves every one to its real destination at capture time, falling back to `https://<domain>/` when resolution fails (the fallback leans on Gemini's titles being bare domains today; the `"." in domain` guard keeps a real title from becoming a bogus URL). A google-genai AFC deprecation warning on stderr is benign.
 - **ChatGPT** only reveals retrieved sources when asked via `include=["web_search_call.action.sources"]`, and its URLs carry a `?utm_source=openai` tracking suffix, so the same page can appear once with it and once without; strip it before comparing cited URLs against retrieved URLs. Domain counting is unaffected (the aggregator parses the host and ignores query strings).
 - **Claude** scatters citations across content blocks; the script reassembles them in answer order.
 
@@ -474,7 +474,7 @@ if __name__ == "__main__":
 uv run cited-domains.py claude-1.json claude-2.json chatgpt-1.json gemini-1.json
 ```
 
-A domain cited in 3 samples counts 3; the instance counts are what make engines comparable.
+A domain cited in 3 samples counts 3. Instance counts compare cleanly across samples of the same engine; across engines they are indicative rather than exact, since each engine's citation granularity differs (Gemini attaches several sources to one span where ChatGPT marks one per claim).
 
 ### Step 4: Analyze the Traces
 

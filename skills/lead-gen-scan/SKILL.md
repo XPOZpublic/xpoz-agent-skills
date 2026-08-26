@@ -243,7 +243,9 @@ Build OR-joined query strings per bucket, e.g. `"looking for a social listening 
 - Prefer short quoted phrases OR-joined together over long exact phrases; long phrases must match verbatim and usually return nothing.
 - Expect heavy vendor self-promotion in the results (often the majority). Don't fight it in the query; qualify hard in Step 5, where vendors are a disqualifier.
 
-When working under a call budget, spend it in this order: Reddit asking bucket, Reddit competitor bucket, Twitter/X competitor bucket, then the rest; those three carry most of the signal.
+When working under a call budget, spend it in this order: Reddit asking bucket, Reddit competitor bucket, Twitter/X competitor bucket, Twitter/X asking bucket, Reddit comments, then Instagram and TikTok; the first three carry most of the signal.
+
+One more query rule: a brand name that doubles as a common English word ("plausible", "fathom", "mention") must be anchored, either to a rival ("plausible vs umami") or to a category word, or the bucket drowns in false positives.
 
 ### Step 3: Search the Four Platforms
 
@@ -266,16 +268,29 @@ Mechanics that matter:
 - Search on thin fields (as above, no post body) and fetch full text only for shortlisted candidates via `getRedditPostWithCommentsById`; selftexts can be huge and one blog-length post can dwarf the rest of the response.
 - Verify dates client-side; an occasional result lands just outside the requested window.
 
-Repeat with `getTwitterPostsByKeywords` (pass `filterOutRetweets: true`), and, budget permitting, `getInstagramPostsByKeywords` and `getTiktokPostsByKeywords`. Reddit comments often hold the asks that posts don't; add:
+Repeat for Twitter/X:
+
+```
+Call getTwitterPostsByKeywords:
+  query: "<bucket query>"
+  fields: ["id", "text", "authorUsername", "createdAtDate", "likeCount", "replyCount", "conversationId", "replyToTweetId"]
+  filterOutRetweets: true
+  limit: 15
+  startDate: "<window start>"
+  endDate: "<today>"
+```
+
+The `conversationId` and `replyToTweetId` fields are what make Step 4's reply-chasing possible; without them a reply cannot be traced to its thread. Budget permitting, repeat with `getInstagramPostsByKeywords` and `getTiktokPostsByKeywords`. Reddit comments often hold the asks that posts don't; add:
 
 ```
 Call getRedditCommentsByKeywords:
   query: "<asking-bucket query>"
-  fields: ["id", "text", "authorUsername", "score", "createdAtDate", "parentPostId"]
+  fields: ["id", "body", "authorUsername", "score", "createdAtDate", "parentPostId"]
+  limit: 15
   startDate: "<window start>"
 ```
 
-Comment search runs against the database only, so a fresh 7-day window can legitimately return no data; that is absence of coverage, not absence of demand.
+Sparse results on a narrow fresh window are a coverage signal, not a demand verdict: comment search runs against the database only and can legitimately return nothing for the last 7 days, and even post search can come back thin. Before concluding "no demand," widen the window or rephrase; before concluding "demand," read what actually came back.
 
 #### Via Python SDK
 
@@ -332,6 +347,7 @@ Buckets: **P1, act now** (clear ask, strong fit, still live), **P2, worth engagi
 [3-5 leads sized to what a human can actually act on today, one line each with link]
 
 ### P1: Act Now
+[Write "None this week" when nothing earns it; an honest empty bucket beats a padded one.]
 #### [Platform] | [thread/post title or author] | [link]
 - **The ask:** "[quote]"
 - **Why it qualifies:** [intent + fit + freshness in one line]
