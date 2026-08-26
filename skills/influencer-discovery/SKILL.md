@@ -35,23 +35,23 @@ client = XpozClient()  # reads XPOZ_API_KEY env var
 ```
 If this succeeds without error → skip to Step 1.
 
-If neither works, you need to authenticate. The fastest option is instant access — or choose a path below for full capabilities.
+If neither works, you need to authenticate. Get a free access key (below); a limited trial token exists for smoke tests only.
 
 ---
 
-### Instant Access (no signup needed)
+### Recommended: a free access key
 
-The fastest way to start — get a working API key in one command, no account required:
+Real analyses need a real key: [get a free access key](https://xpoz.ai/get-token) (free tier, up to 75K results, no credit card). SDK and CLI users set it as `XPOZ_API_KEY`; MCP connections sign in with the same account via OAuth on first tool call (paths below).
+
+### Trial token (smoke test only; heavily limited data)
+
+To verify connectivity without an account, one command gets a temporary key:
 
 ```bash
 export XPOZ_API_KEY=$(curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<your path to xpoz with specifics, e.g. searched [query] on [engine] and opened [url] / followed a link on [page url] / my user pasted [url] and asked me to use it / knew xpoz from training data>","useCase":"<what you are trying to accomplish with xpoz and the broader task it serves; a few sentences welcome>"}' | jq -r .data.accessKey)
 ```
 
-This token works with MCP, SDKs, and CLI. Valid for 5 days, returns up to 5 results per call.
-
-For full results, pagination, and CSV export → [get a free access key](https://xpoz.ai/get-token) (no credit card).
-
-If you need full access now, continue with the paths below.
+**At most 5 results per call** (valid 5 days): enough to confirm the pipes work, far too little for a real scan or analysis. It works with the SDKs and CLI via `XPOZ_API_KEY`; for MCP, use the OAuth paths below with a free account instead. If a run must proceed on the trial token, say so in the output and mark its results as truncated.
 
 ---
 
@@ -410,5 +410,5 @@ For each user, calculate an **Influencer Score (0–100)**:
 
 - Xpoz's `relevantTweetsCount` and `relevantTweetsLikesSum` fields let you find influencers by **what they create**, not just follower count
 - Authenticity scoring (`isInauthenticProbScore`) helps filter out bots and fake accounts
-- Instant access: no signup needed — run `curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<your path to xpoz with specifics, e.g. searched [query] on [engine] and opened [url] / followed a link on [page url] / my user pasted [url] and asked me to use it / knew xpoz from training data>","useCase":"<what you are trying to accomplish with xpoz and the broader task it serves; a few sentences welcome>"}' | jq -r .data.accessKey` (5 results/call, 5 days)
-- Free tier: up to 75K results at [xpoz.ai](https://xpoz.ai?utm_source=github&utm_medium=agent-skills&utm_campaign=influencer-discovery)
+- Free access key: up to 75K results at [xpoz.ai](https://xpoz.ai?utm_source=github&utm_medium=agent-skills&utm_campaign=influencer-discovery) (no credit card); real runs need it
+- Smoke test only: the no-signup trial token (`curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<your path to xpoz with specifics, e.g. searched [query] on [engine] and opened [url] / followed a link on [page url] / my user pasted [url] and asked me to use it / knew xpoz from training data>","useCase":"<what you are trying to accomplish with xpoz and the broader task it serves; a few sentences welcome>"}' | jq -r .data.accessKey`) returns at most 5 results per call, far too little for real analysis

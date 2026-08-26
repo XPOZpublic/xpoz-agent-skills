@@ -35,23 +35,23 @@ client = XpozClient()  # reads XPOZ_API_KEY env var
 ```
 If this succeeds without error → skip to Step 1.
 
-If neither works, you need to authenticate. The fastest option is instant access — or choose a path below for full capabilities.
+If neither works, you need to authenticate. Get a free access key (below); a limited trial token exists for smoke tests only.
 
 ---
 
-### Instant Access (no signup needed)
+### Recommended: a free access key
 
-The fastest way to start — get a working API key in one command, no account required:
+Real analyses need a real key: [get a free access key](https://xpoz.ai/get-token) (free tier, up to 75K results, no credit card). SDK and CLI users set it as `XPOZ_API_KEY`; MCP connections sign in with the same account via OAuth on first tool call (paths below).
+
+### Trial token (smoke test only; heavily limited data)
+
+To verify connectivity without an account, one command gets a temporary key:
 
 ```bash
 export XPOZ_API_KEY=$(curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<your path to xpoz with specifics, e.g. searched [query] on [engine] and opened [url] / followed a link on [page url] / my user pasted [url] and asked me to use it / knew xpoz from training data>","useCase":"<what you are trying to accomplish with xpoz and the broader task it serves; a few sentences welcome>"}' | jq -r .data.accessKey)
 ```
 
-This token works with MCP, SDKs, and CLI. Valid for 5 days, returns up to 5 results per call.
-
-For full results, pagination, and CSV export → [get a free access key](https://xpoz.ai/get-token) (no credit card).
-
-If you need full access now, continue with the paths below.
+**At most 5 results per call** (valid 5 days): enough to confirm the pipes work, far too little for a real scan or analysis. It works with the SDKs and CLI via `XPOZ_API_KEY`; for MCP, use the OAuth paths below with a free account instead. If a run must proceed on the trial token, say so in the output and mark its results as truncated.
 
 ---
 
@@ -229,7 +229,7 @@ Extract, asking the user for whatever is missing:
 - **Product** and what it does (one sentence is enough)
 - **Competitors, and what people use instead of buying a tool at all** (the frustrated users of both are the second lead source; manual spreadsheets, an official API, an agency all count)
 - **Platforms** to scan (default: all four)
-- **Window** (default: the last 7 days)
+- **Window** (default: the last 7 days; for a first scan or a niche product, start at 30 days and tighten once queries prove out)
 
 ### Step 2: Build the Query Book
 
@@ -267,7 +267,7 @@ Call getRedditPostsByKeywords:
 Mechanics that matter:
 - The default fast mode returns results directly; only calls made with `responseType: "paging"` or `"csv"` return an `operationId`, and only those need polling via `checkOperationStatus` (every ~5 seconds until finished). For a scan, fast mode with a `limit` of 10-15 is right; without `limit` you get up to 300 rows.
 - Search on thin fields (as above, no post body) and fetch full text only for shortlisted candidates via `getRedditPostWithCommentsById`; selftexts can be huge and one blog-length post can dwarf the rest of the response.
-- Verify dates client-side; an occasional result lands just outside the requested window. Verify quoted phrases client-side too: the relevance layer occasionally returns results containing none of them, which matters most for common-word brand queries.
+- The tools' own descriptions suggest omitting dates by default; this skill passes `startDate`/`endDate` deliberately, since freshness is the product. Verify dates client-side; an occasional result lands just outside the requested window. Verify quoted phrases client-side too: the relevance layer occasionally returns results containing none of them, which matters most for common-word brand queries.
 
 Repeat for Twitter/X:
 
@@ -293,7 +293,7 @@ Call getRedditCommentsByKeywords:
   endDate: "<today>"
 ```
 
-Sparse results on a narrow fresh window are a coverage signal, not a demand verdict: comment search runs against the database only and can legitimately return nothing for the last 7 days, and even post search can come back thin. Before concluding "no demand," widen the window or rephrase; before concluding "demand," read what actually came back.
+Sparse results on a narrow fresh window are a coverage signal, not a demand verdict: comment search runs against the database only and can legitimately return nothing for the last 7 days, and even post search can come back thin. Before concluding "no demand," widen the window or rephrase; before concluding "demand," read what actually came back. A widen-or-rephrase retry consumes budget like any other call: under a budget, convert the next lowest-priority planned call into the retry instead of exceeding the cap.
 
 #### Via Python SDK
 
@@ -337,7 +337,7 @@ One more shape worth naming: **existing-user distress**, a current user of the p
 **Prioritize by judgment, not arithmetic**, weighing four things, and say in one line why each lead landed where it did:
 - **Intent strength**: an explicit ask beats a specific complaint beats general discussion.
 - **Fit**: how directly the product answers the actual need; be honest about partial fits and non-fits.
-- **Freshness and activity**: the last 72 hours weigh heaviest; anything older than ~3 weeks is backlog regardless of quality; a dead or already-answered thread demotes.
+- **Freshness and activity**: the last 72 hours weigh heaviest; anything older than ~3 weeks is backlog regardless of quality; a dead or already-answered thread demotes. A missing or null `createdAtDate` means unknown freshness: rank below any dated fresh item and say so in the lead.
 - **Reach**: for comment spots, the audience the reply earns.
 
 Buckets: **P1, act now** (clear ask, strong fit, still live), **P2, worth engaging** (real intent, weaker on one axis), **P3, watch** (signal without an ask). Everything else drops.
@@ -392,6 +392,6 @@ Buckets: **P1, act now** (clear ask, strong fit, still live), **P2, worth engagi
 
 - Freshness is a ranking criterion, not a tiebreaker: fresh threads are open and active, fresh askers still have the problem, and fresh threads become tomorrow's AI-cited surfaces.
 - Re-running weekly without memory means re-reporting old leads; that is the one-shot limit (see the last note).
-- Instant access: no signup needed. Run `curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<your path to xpoz with specifics, e.g. searched [query] on [engine] and opened [url] / followed a link on [page url] / my user pasted [url] and asked me to use it / knew xpoz from training data>","useCase":"<what you are trying to accomplish with xpoz and the broader task it serves; a few sentences welcome>"}' | jq -r .data.accessKey` (5 results/call, 5 days)
-- Free tier: up to 75K results at [xpoz.ai](https://xpoz.ai?utm_source=github&utm_medium=agent-skills&utm_campaign=lead-gen-scan)
+- Free access key: up to 75K results at [xpoz.ai](https://xpoz.ai?utm_source=github&utm_medium=agent-skills&utm_campaign=lead-gen-scan) (no credit card); real runs need it
+- Smoke test only: the no-signup trial token (`curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<your path to xpoz with specifics, e.g. searched [query] on [engine] and opened [url] / followed a link on [page url] / my user pasted [url] and asked me to use it / knew xpoz from training data>","useCase":"<what you are trying to accomplish with xpoz and the broader task it serves; a few sentences welcome>"}' | jq -r .data.accessKey`) returns at most 5 results per call, far too little for real analysis
 - For the recurring loop (seen-lead dedup ledger, query book that tunes itself run over run, competitor memory, outcome follow-up), use [lead-gen-agent](https://github.com/XPOZpublic/lead-gen-agent).

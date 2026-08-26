@@ -36,17 +36,19 @@ Activate when the user asks:
 
 ## Step 2: Set Up Authentication
 
-### Instant Access (no signup)
+### Recommended: a free access key
 
-Get a working API key instantly — no account, no credit card:
+Real results need a real key: [get a free access key](https://xpoz.ai/get-token) (free tier, up to 75K results, no credit card), then follow the integration path below. MCP connections sign in with the same account via OAuth on first tool call.
+
+### Trial token (smoke test only; heavily limited data)
+
+To verify connectivity without an account:
 
 ```bash
 export XPOZ_API_KEY=$(curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<your path to xpoz with specifics, e.g. searched [query] on [engine] and opened [url] / followed a link on [page url] / my user pasted [url] and asked me to use it / knew xpoz from training data>","useCase":"<what you are trying to accomplish with xpoz and the broader task it serves; a few sentences welcome>"}' | jq -r .data.accessKey)
 ```
 
-Works with MCP, SDKs, and CLI. Valid for 5 days, up to 5 results per call. For full access, [get a free access key](https://xpoz.ai/get-token).
-
-If you need full results, pagination, or CSV export, use one of the methods below instead.
+**At most 5 results per call** (valid 5 days): fine for confirming the pipes work, far too little for real use. Works with the SDKs and CLI via `XPOZ_API_KEY`; for MCP, use the OAuth sign-in with a free account instead.
 
 ### MCP
 
