@@ -168,19 +168,14 @@ print("Xpoz configured successfully")
 
 ---
 
-### Path B: MCP via Claude Code config
+### Path B: MCP via Claude Code
 
-For Claude Code users without mcporter, add to `~/.claude.json`:
-```json
-{
-  "mcpServers": {
-    "xpoz": {
-      "url": "https://mcp.xpoz.ai/mcp",
-      "transport": "http-stream"
-    }
-  }
-}
+For Claude Code users without mcporter:
+
+```bash
+claude mcp add --transport http xpoz https://mcp.xpoz.ai/mcp
 ```
+
 Claude Code handles OAuth automatically on first tool call — the user just needs to authorize in their browser when prompted.
 
 ---
@@ -256,13 +251,14 @@ Find where the target questions are asked:
 
 ```
 Call getRedditPostsByKeywords:
-  query: "<question phrasing variants, OR-joined>"
-  fields: ["id", "title", "text", "subreddit", "score", "numComments", "createdAtDate", "url"]
+  query: "<question phrasing variants, OR-joined, short quoted phrases>"
+  fields: ["id", "title", "authorUsername", "subredditName", "score", "commentsCount", "createdAtDate", "permalink"]
+  limit: 15
   startDate: "<90 days ago, YYYY-MM-DD>"
   endDate: "<today, YYYY-MM-DD>"
 ```
 
-**CRITICAL:** Call `checkOperationStatus` with the returned `operationId` and poll until "completed" (up to 8 retries, ~5 seconds apart).
+The default fast mode returns results directly (pass `limit`; queries cap at 250 characters). Only calls made with `responseType: "paging"` or `"csv"` return an `operationId` to poll via `checkOperationStatus` (every ~5 seconds until finished). Fetch full post text only for the threads you shortlist, via the thread fetch below.
 
 Explore the subreddits the traces surfaced (and discover adjacent ones):
 

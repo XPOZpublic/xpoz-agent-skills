@@ -168,19 +168,14 @@ print("Xpoz configured successfully")
 
 ---
 
-### Path B: MCP via Claude Code config
+### Path B: MCP via Claude Code
 
-For Claude Code users without mcporter, add to `~/.claude.json`:
-```json
-{
-  "mcpServers": {
-    "xpoz": {
-      "url": "https://mcp.xpoz.ai/mcp",
-      "transport": "http-stream"
-    }
-  }
-}
+For Claude Code users without mcporter:
+
+```bash
+claude mcp add --transport http xpoz https://mcp.xpoz.ai/mcp
 ```
+
 Claude Code handles OAuth automatically on first tool call — the user just needs to authorize in their browser when prompted.
 
 ---
@@ -238,12 +233,13 @@ Collect 5-10 buyer prompts. Sources, best first:
 ```
 Call getRedditPostsByKeywords:
   query: "<problem phrasings, OR-joined, e.g. 'best tool for X' OR 'how do I X' OR 'X alternative'>"
-  fields: ["id", "title", "text", "subreddit", "score", "numComments", "createdAtDate"]
+  fields: ["id", "title", "subredditName", "score", "commentsCount", "createdAtDate"]
+  limit: 15
   startDate: "<90 days ago, YYYY-MM-DD>"
   endDate: "<today, YYYY-MM-DD>"
 ```
 
-**CRITICAL:** Call `checkOperationStatus` with the returned `operationId` and poll until "completed" (up to 8 retries, ~5 seconds apart). Repeat with `getTwitterPostsByKeywords` for the developer/founder conversation.
+The default fast mode returns results directly (pass `limit`; queries cap at 250 characters); only `responseType: "paging"`/`"csv"` calls return an `operationId` to poll via `checkOperationStatus` (every ~5 seconds until finished). Repeat with `getTwitterPostsByKeywords` (pass `filterOutRetweets: true`) for the developer/founder conversation.
 
 3. **Derived**: phrase the product's jobs-to-be-done as assistant questions ("best [category] for [persona]", "how do I [job]", "[current tool] alternatives", "how much does [category thing] cost").
 

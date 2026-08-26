@@ -168,19 +168,14 @@ print("Xpoz configured successfully")
 
 ---
 
-### Path B: MCP via Claude Code config
+### Path B: MCP via Claude Code
 
-For Claude Code users without mcporter, add to `~/.claude.json`:
-```json
-{
-  "mcpServers": {
-    "xpoz": {
-      "url": "https://mcp.xpoz.ai/mcp",
-      "transport": "http-stream"
-    }
-  }
-}
+For Claude Code users without mcporter:
+
+```bash
+claude mcp add --transport http xpoz https://mcp.xpoz.ai/mcp
 ```
+
 Claude Code handles OAuth automatically on first tool call — the user just needs to authorize in their browser when prompted.
 
 ---

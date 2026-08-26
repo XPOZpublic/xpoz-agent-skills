@@ -168,19 +168,14 @@ print("Xpoz configured successfully")
 
 ---
 
-### Path B: MCP via Claude Code config
+### Path B: MCP via Claude Code
 
-For Claude Code users without mcporter, add to `~/.claude.json`:
-```json
-{
-  "mcpServers": {
-    "xpoz": {
-      "url": "https://mcp.xpoz.ai/mcp",
-      "transport": "http-stream"
-    }
-  }
-}
+For Claude Code users without mcporter:
+
+```bash
+claude mcp add --transport http xpoz https://mcp.xpoz.ai/mcp
 ```
+
 Claude Code handles OAuth automatically on first tool call — the user just needs to authorize in their browser when prompted.
 
 ---
@@ -243,7 +238,12 @@ Two search motions, both run every scan:
 1. **Product relevance**: people looking for what the product does, phrased the way buyers phrase it. Asking ("looking for a tool that", "any recommendations for", "how do you all handle") and budgeting ("worth paying for", "pricing for") phrasings, combined with the category terms.
 2. **Competitor disappointment**: people frustrated with the alternatives. Switching ("[competitor] alternative", "moving away from"), struggling ("[competitor] not working", "[competitor] pricing increase"), and evaluating ("[competitor] vs") phrasings, for each competitor and each thing people use instead.
 
-Build OR-joined query strings per bucket, e.g. `"looking for a social listening tool" OR "brand monitoring recommendations" OR "how do you track mentions"`.
+Build OR-joined query strings per bucket, e.g. `"looking for a social listening tool" OR "brand monitoring recommendations" OR "how do you track mentions"`. Three practical constraints:
+- Queries are capped at 250 characters; split an oversized bucket into two calls rather than truncating phrases.
+- Prefer short quoted phrases OR-joined together over long exact phrases; long phrases must match verbatim and usually return nothing.
+- Expect heavy vendor self-promotion in the results (often the majority). Don't fight it in the query; qualify hard in Step 5, where vendors are a disqualifier.
+
+When working under a call budget, spend it in this order: Reddit asking bucket, Reddit competitor bucket, Twitter/X competitor bucket, then the rest; those three carry most of the signal.
 
 ### Step 3: Search the Four Platforms
 
@@ -254,21 +254,28 @@ Run each query bucket per platform:
 ```
 Call getRedditPostsByKeywords:
   query: "<bucket query>"
-  fields: ["id", "title", "text", "authorUsername", "subreddit", "score", "numComments", "createdAtDate", "url"]
+  fields: ["id", "title", "authorUsername", "subredditName", "score", "commentsCount", "createdAtDate", "permalink"]
+  limit: 15
   startDate: "<window start, YYYY-MM-DD>"
   endDate: "<today, YYYY-MM-DD>"
+  userPrompt: "<the user's original request, for relevance tuning>"
 ```
 
-**CRITICAL:** Call `checkOperationStatus` with the returned `operationId` and poll until "completed" (up to 8 retries, ~5 seconds apart).
+Mechanics that matter:
+- The default fast mode returns results directly; only calls made with `responseType: "paging"` or `"csv"` return an `operationId`, and only those need polling via `checkOperationStatus` (every ~5 seconds until finished). For a scan, fast mode with a `limit` of 10-15 is right; without `limit` you get up to 300 rows.
+- Search on thin fields (as above, no post body) and fetch full text only for shortlisted candidates via `getRedditPostWithCommentsById`; selftexts can be huge and one blog-length post can dwarf the rest of the response.
+- Verify dates client-side; an occasional result lands just outside the requested window.
 
-Repeat with `getTwitterPostsByKeywords`, `getInstagramPostsByKeywords`, and `getTiktokPostsByKeywords` (same query, platform-appropriate fields; for Twitter, filter retweets out of the results). Reddit comments often hold the asks that posts don't; add:
+Repeat with `getTwitterPostsByKeywords` (pass `filterOutRetweets: true`), and, budget permitting, `getInstagramPostsByKeywords` and `getTiktokPostsByKeywords`. Reddit comments often hold the asks that posts don't; add:
 
 ```
 Call getRedditCommentsByKeywords:
   query: "<asking-bucket query>"
-  fields: ["id", "text", "authorUsername", "score", "createdAtDate", "postId"]
+  fields: ["id", "text", "authorUsername", "score", "createdAtDate", "parentPostId"]
   startDate: "<window start>"
 ```
+
+Comment search runs against the database only, so a fresh 7-day window can legitimately return no data; that is absence of coverage, not absence of demand.
 
 #### Via Python SDK
 
@@ -301,6 +308,8 @@ Different platforms yield different lead shapes; classify every candidate as one
 - **Reddit: places to comment.** Threads where a disclosed, genuinely useful comment answers a live ask. The thread is the lead; the asker and the lurkers are the audience.
 - **X / Instagram / TikTok: two shapes.** **Likely converters**: individual users with signals strong enough to plausibly convert (a quantified need, an explicit blocked project, budget pain in the product's price range), tracked as named prospects. **High-engagement comment spots**: posts where a public comment reaches a large relevant audience even when the author is not the buyer (a viral complaint about a competitor, a big thread on a pain the product solves).
 
+**Chase replies up to their thread.** Some of the best hits are replies or comments whose *parent thread* is the real lead. Resolve them before classifying: on Reddit, `getRedditPostWithCommentsById` on the comment's `parentPostId`; on X, fetch the conversation the reply belongs to. Report the thread, not the reply.
+
 ### Step 5: Qualify and Prioritize
 
 **Qualify first.** The ask is the qualifier: intent, not venting, and the author should plausibly own the buying decision. Hard disqualifiers, never reported: vendors selling a competing solution, keyword hits in unrelated contexts, obvious spam or engagement bait.
@@ -330,6 +339,9 @@ Buckets: **P1, act now** (clear ask, strong fit, still live), **P2, worth engagi
 
 ### P2: Worth Engaging
 [Same shape, shorter]
+
+### Named Prospects
+[Individual users from the likely-converter shape: handle, platform, the signal quoted, suggested approach. Omit the section if none qualified.]
 
 ### P3: Watch
 [One line each: the signal and what change would promote it]
