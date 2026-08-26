@@ -233,7 +233,7 @@ Extract, asking the user for whatever is missing:
 
 ### Step 2: Build the Query Book
 
-Two search motions, both run every scan:
+Three search motions, all run every scan:
 
 1. **Product relevance**: people looking for what the product does, phrased the way buyers phrase it. Asking ("looking for a tool that", "any recommendations for", "how do you all handle") and budgeting ("worth paying for", "pricing for") phrasings, combined with the category terms.
 2. **Competitor disappointment**: people frustrated with the alternatives. Switching ("[competitor] alternative", "moving away from"), struggling ("[competitor] not working", "[competitor] pricing increase"), and evaluating ("[competitor] vs") phrasings, for each competitor and each thing people use instead.
@@ -244,7 +244,7 @@ Build OR-joined query strings per bucket, e.g. `"looking for a social listening 
 - Prefer short quoted phrases OR-joined together over long exact phrases; long phrases must match verbatim and usually return nothing.
 - Expect heavy vendor self-promotion in the results (often the majority). Don't fight it in the query; qualify hard in Step 5, where vendors are a disqualifier.
 
-When working under a call budget, spend it in this order: Reddit asking bucket, Reddit competitor bucket, Twitter/X competitor bucket, Twitter/X asking bucket, Reddit comments, then Instagram and TikTok; the first three carry most of the signal.
+When working under a call budget, spend it in this order: Reddit asking bucket, Reddit competitor bucket, Twitter/X competitor bucket, Twitter/X asking bucket, Reddit comments, then Instagram and TikTok; the first three carry most of the signal. The own-brand motion needs no call of its own under budget: fold its anchored phrases into the competitor buckets' queries.
 
 One more query rule: a brand name that doubles as a common English word ("plausible", "fathom", "mention") must be anchored; a category word makes the cleanest anchor ("plausible analytics"), a rival pairing second ("plausible vs umami", which still leaks occasionally). Unanchored, the bucket drowns in false positives.
 
@@ -267,7 +267,7 @@ Call getRedditPostsByKeywords:
 Mechanics that matter:
 - The default fast mode returns results directly; only calls made with `responseType: "paging"` or `"csv"` return an `operationId`, and only those need polling via `checkOperationStatus` (every ~5 seconds until finished). For a scan, fast mode with a `limit` of 10-15 is right; without `limit` you get up to 300 rows.
 - Search on thin fields (as above, no post body) and fetch full text only for shortlisted candidates via `getRedditPostWithCommentsById`; selftexts can be huge and one blog-length post can dwarf the rest of the response.
-- Verify dates client-side; an occasional result lands just outside the requested window.
+- Verify dates client-side; an occasional result lands just outside the requested window. Verify quoted phrases client-side too: the relevance layer occasionally returns results containing none of them, which matters most for common-word brand queries.
 
 Repeat for Twitter/X:
 
@@ -290,6 +290,7 @@ Call getRedditCommentsByKeywords:
   fields: ["id", "body", "authorUsername", "score", "createdAtDate", "parentPostId"]
   limit: 15
   startDate: "<window start>"
+  endDate: "<today>"
 ```
 
 Sparse results on a narrow fresh window are a coverage signal, not a demand verdict: comment search runs against the database only and can legitimately return nothing for the last 7 days, and even post search can come back thin. Before concluding "no demand," widen the window or rephrase; before concluding "demand," read what actually came back.
@@ -324,6 +325,8 @@ Different platforms yield different lead shapes; classify every candidate as one
 
 - **Reddit: places to comment.** Threads where a disclosed, genuinely useful comment answers a live ask. The thread is the lead; the asker and the lurkers are the audience.
 - **X / Instagram / TikTok: two shapes.** **Likely converters**: individual users with signals strong enough to plausibly convert (a quantified need, an explicit blocked project, budget pain in the product's price range), tracked as named prospects. **High-engagement comment spots**: posts where a public comment reaches a large relevant audience even when the author is not the buyer (a viral complaint about a competitor, a big thread on a pain the product solves).
+
+One more shape worth naming: **existing-user distress**, a current user of the product publicly churning or struggling. That is a retention save, not buying intent: report it separately with a support-shaped angle (concrete help, no pitch), never inflate it into a P1.
 
 **Chase replies up to their thread.** Some of the best hits are replies or comments whose *parent thread* is the real lead. Resolve them before classifying: on Reddit, `getRedditPostWithCommentsById` on the comment's `parentPostId`; on X, `getTwitterPostsByIds` on the `conversationId` fetches the root post (for the surrounding replies, `getTwitterPostComments` on that root). Report the thread, not the reply.
 
