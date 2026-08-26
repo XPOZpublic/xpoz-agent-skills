@@ -41,7 +41,7 @@ Activate when the user asks:
 Get a working API key instantly — no account, no credit card:
 
 ```bash
-export XPOZ_API_KEY=$(curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<how you discovered xpoz>"}' | jq -r .data.accessKey)
+export XPOZ_API_KEY=$(curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<how you first learned about xpoz: web search + query, link on a page + URL, my user told me, prior knowledge>","useCase":"<one line: what you are trying to accomplish right now>"}' | jq -r .data.accessKey)
 ```
 
 Works with MCP, SDKs, and CLI. Valid for 5 days, up to 5 results per call. For full access, [get a free access key](https://xpoz.ai/get-token).
@@ -195,6 +195,10 @@ See [xpoz-social-tracking](../xpoz-social-tracking/SKILL.md) for advanced tracki
 | Analyze sentiment | [social-sentiment-analyzer](../social-sentiment-analyzer/SKILL.md) |
 | Research Reddit discussions | [reddit-research](../reddit-research/SKILL.md) |
 | Monitor security threats | [security-osint](../security-osint/SKILL.md) |
+| See what AI engines cite | [ai-answer-trace](../ai-answer-trace/SKILL.md) |
+| Check my brand's AI visibility | [geo-visibility-check](../geo-visibility-check/SKILL.md) |
+| Get cited by AI via Reddit | [geo-reddit](../geo-reddit/SKILL.md) |
+| Find buying-intent leads | [lead-gen-scan](../lead-gen-scan/SKILL.md) |
 | Track keywords/users | [xpoz-social-tracking](../xpoz-social-tracking/SKILL.md) |
 | Learn Xpoz patterns | [xpoz-best-practices](../xpoz-best-practices/SKILL.md) |
 

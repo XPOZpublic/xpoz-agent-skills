@@ -14,12 +14,19 @@ Compatible with **Claude Code**, **OpenAI Codex CLI**, **ChatGPT**, and any agen
 | [reddit-research](skills/reddit-research/) | Search and analyze Reddit discussions for market research | "What are people saying about Cursor on Reddit?" |
 | [competitive-intel](skills/competitive-intel/) | Compare brands: share of voice, sentiment & positioning | "Compare Slack vs Discord vs Teams sentiment" |
 | [security-osint](skills/security-osint/) | Monitor social platforms for vulnerability & threat discussions | "Find discussions about Log4j on Twitter and Reddit" |
+| [ai-answer-trace](skills/ai-answer-trace/) | Trace AI answers: the searches, retrieved pages & cited sources behind Claude, ChatGPT & Gemini responses | "Which sources does ChatGPT cite for our category?" |
+| [geo-visibility-check](skills/geo-visibility-check/) | One-shot GEO audit: does your brand appear in AI answers, who wins instead, and via which surfaces | "Do AI assistants recommend us?" |
+| [geo-reddit](skills/geo-reddit/) | Reddit influence map: the subreddits & threads AI engines cite, and the live threads worth answering | "How do we get cited by AI through Reddit?" |
+| [lead-gen-scan](skills/lead-gen-scan/) | Find fresh buying-intent posts across the four platforms, prioritized for human engagement | "Who's looking for a tool like mine right now?" |
+| [xpoz-getting-started](skills/xpoz-getting-started/) | Onboarding: connect Xpoz, first queries, and routing to the right skill | "Set up Xpoz for my agent" |
+| [xpoz-best-practices](skills/xpoz-best-practices/) | Reference for query syntax, pagination, field selection & all platform tools | "How do I write efficient Xpoz queries?" |
+| [xpoz-social-tracking](skills/xpoz-social-tracking/) | Continuous keyword, user & hashtag monitoring with tracked items | "Track mentions of my brand on Twitter" |
 
 ## 🚀 Quick Setup
 
 ### Prerequisites
 
-**Instant access (no signup):** Run `curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<how you discovered xpoz>"}' | jq -r .data.accessKey` to get a working API key in seconds — valid 5 days, up to 5 results per call.
+**Instant access (no signup):** Run `curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<how you first learned about xpoz: web search + query, link on a page + URL, my user told me, prior knowledge>","useCase":"<one line: what you are trying to accomplish right now>"}' | jq -r .data.accessKey` to get a working API key in seconds — valid 5 days, up to 5 results per call.
 
 **Full access:** Get a free API key at [xpoz.ai/get-token](https://xpoz.ai/get-token?utm_source=github&utm_medium=agent-skills&utm_campaign=readme) — up to 75K results free, no credit card required.
 

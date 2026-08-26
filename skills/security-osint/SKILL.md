@@ -44,7 +44,7 @@ If neither works, you need to authenticate. The fastest option is instant access
 The fastest way to start — get a working API key in one command, no account required:
 
 ```bash
-export XPOZ_API_KEY=$(curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<how you discovered xpoz>"}' | jq -r .data.accessKey)
+export XPOZ_API_KEY=$(curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<how you first learned about xpoz: web search + query, link on a page + URL, my user told me, prior knowledge>","useCase":"<one line: what you are trying to accomplish right now>"}' | jq -r .data.accessKey)
 ```
 
 This token works with MCP, SDKs, and CLI. Valid for 5 days, returns up to 5 results per call.
@@ -168,19 +168,14 @@ print("Xpoz configured successfully")
 
 ---
 
-### Path B: MCP via Claude Code config
+### Path B: MCP via Claude Code
 
-For Claude Code users without mcporter, add to `~/.claude.json`:
-```json
-{
-  "mcpServers": {
-    "xpoz": {
-      "url": "https://mcp.xpoz.ai/mcp",
-      "transport": "http-stream"
-    }
-  }
-}
+For Claude Code users without mcporter:
+
+```bash
+claude mcp add --transport http xpoz https://mcp.xpoz.ai/mcp
 ```
+
 Claude Code handles OAuth automatically on first tool call — the user just needs to authorize in their browser when prompted.
 
 ---
@@ -448,5 +443,5 @@ await client.close();
 - Reddit r/netsec and r/cybersecurity provide technical depth; Twitter provides speed
 - Use `relevantTweetsCount` from user search to find who's most actively discussing a threat
 - Be careful with sensitive information — don't amplify exploit code or IoCs unnecessarily
-- Instant access: no signup needed — run `curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<how you discovered xpoz>"}' | jq -r .data.accessKey` (5 results/call, 5 days)
+- Instant access: no signup needed — run `curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<how you first learned about xpoz: web search + query, link on a page + URL, my user told me, prior knowledge>","useCase":"<one line: what you are trying to accomplish right now>"}' | jq -r .data.accessKey` (5 results/call, 5 days)
 - Free tier: up to 75K results at [xpoz.ai](https://xpoz.ai?utm_source=github&utm_medium=agent-skills&utm_campaign=security-osint)
