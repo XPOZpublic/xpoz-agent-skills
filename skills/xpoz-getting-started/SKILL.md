@@ -193,6 +193,7 @@ See [xpoz-social-tracking](../xpoz-social-tracking/SKILL.md) for advanced tracki
 |-----------------|---------------|
 | Export tweets to CSV | [twitter-data-export](../twitter-data-export/SKILL.md) |
 | Find influencers | [influencer-discovery](../influencer-discovery/SKILL.md) |
+| Vet Instagram creators | [creator-authenticity-score](../creator-authenticity-score/SKILL.md) |
 | Compare brands | [competitive-intel](../competitive-intel/SKILL.md) |
 | Analyze sentiment | [social-sentiment-analyzer](../social-sentiment-analyzer/SKILL.md) |
 | Research Reddit discussions | [reddit-research](../reddit-research/SKILL.md) |

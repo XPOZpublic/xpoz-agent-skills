@@ -11,6 +11,7 @@ Compatible with **Claude Code**, **OpenAI Codex CLI**, **ChatGPT**, and any agen
 | [social-sentiment-analyzer](skills/social-sentiment-analyzer/) | Analyze brand/topic sentiment across Twitter, Reddit & Instagram | "What's the sentiment around Tesla?" |
 | [twitter-data-export](skills/twitter-data-export/) | Export Twitter search results to CSV (up to 500K rows) | "Export tweets about AI from last month" |
 | [influencer-discovery](skills/influencer-discovery/) | Find and rank influencers by niche, engagement & authenticity | "Find top crypto influencers on Twitter" |
+| [creator-authenticity-score](skills/creator-authenticity-score/) | Vet Instagram creators: view-based engagement rate, bot share of comments & a 0-100 authenticity score | "Is this influencer's audience real?" |
 | [reddit-research](skills/reddit-research/) | Search and analyze Reddit discussions for market research | "What are people saying about Cursor on Reddit?" |
 | [competitive-intel](skills/competitive-intel/) | Compare brands: share of voice, sentiment & positioning | "Compare Slack vs Discord vs Teams sentiment" |
 | [security-osint](skills/security-osint/) | Monitor social platforms for vulnerability & threat discussions | "Find discussions about Log4j on Twitter and Reddit" |
