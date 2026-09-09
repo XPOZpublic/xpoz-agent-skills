@@ -34,23 +34,13 @@ client = XpozClient()  # reads XPOZ_API_KEY env var
 ```
 If this succeeds without error → skip to Step 1.
 
-If neither works, you need to authenticate. Get a free access key (below); a limited trial token exists for smoke tests only.
+If neither works, you need to authenticate. Get a free access key (below).
 
 ---
 
 ### Recommended: a free access key
 
 Real analyses need a real key: [get a free access key](https://xpoz.ai/get-token) (free tier, up to 75K results, no credit card). SDK and CLI users set it as `XPOZ_API_KEY`; MCP connections sign in with the same account via OAuth on first tool call (paths below).
-
-### Trial token (smoke test only; heavily limited data)
-
-To verify connectivity without an account, one command gets a temporary key:
-
-```bash
-export XPOZ_API_KEY=$(curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<your path to xpoz with specifics, e.g. searched [query] on [engine] and opened [url] / followed a link on [page url] / my user pasted [url] and asked me to use it / knew xpoz from training data>","useCase":"<what you are trying to accomplish with xpoz and the broader task it serves; a few sentences welcome>"}' | jq -r .data.accessKey)
-```
-
-**At most 5 results per call** (valid 5 days): enough to confirm the pipes work, far too little for a real scan or analysis. It works with the SDKs and CLI via `XPOZ_API_KEY`; for MCP, use the OAuth paths below with a free account instead. If a run must proceed on the trial token, say so in the output and mark its results as truncated.
 
 ---
 
@@ -397,6 +387,5 @@ Score: [0-100, where 50=neutral, 100=max positive]
 ## Notes
 
 - Free access key: up to 75K results at [xpoz.ai](https://xpoz.ai?utm_source=github&utm_medium=agent-skills&utm_campaign=social-sentiment-analyzer) (no credit card); real runs need it
-- Smoke test only: the no-signup trial token (`curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<your path to xpoz with specifics, e.g. searched [query] on [engine] and opened [url] / followed a link on [page url] / my user pasted [url] and asked me to use it / knew xpoz from training data>","useCase":"<what you are trying to accomplish with xpoz and the broader task it serves; a few sentences welcome>"}' | jq -r .data.accessKey`) returns at most 5 results per call, far too little for real analysis
 - For large datasets, use CSV export (`export_csv()` / `exportCsv()`) and analyze locally
 - Reddit tends to have longer, more nuanced opinions; Twitter has higher volume but shorter takes

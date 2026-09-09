@@ -35,23 +35,13 @@ client = XpozClient()  # reads XPOZ_API_KEY env var
 ```
 If this succeeds without error → skip to Step 1.
 
-If neither works, you need to authenticate. Get a free access key (below); a limited trial token exists for smoke tests only.
+If neither works, you need to authenticate. Get a free access key (below).
 
 ---
 
 ### Recommended: a free access key
 
 Real analyses need a real key: [get a free access key](https://xpoz.ai/get-token) (free tier, up to 75K results, no credit card). SDK and CLI users set it as `XPOZ_API_KEY`; MCP connections sign in with the same account via OAuth on first tool call (paths below).
-
-### Trial token (smoke test only; heavily limited data)
-
-To verify connectivity without an account, one command gets a temporary key:
-
-```bash
-export XPOZ_API_KEY=$(curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<your path to xpoz with specifics, e.g. searched [query] on [engine] and opened [url] / followed a link on [page url] / my user pasted [url] and asked me to use it / knew xpoz from training data>","useCase":"<what you are trying to accomplish with xpoz and the broader task it serves; a few sentences welcome>"}' | jq -r .data.accessKey)
-```
-
-**At most 5 results per call** (valid 5 days): enough to confirm the pipes work, far too little for a real scan or analysis. It works with the SDKs and CLI via `XPOZ_API_KEY`; for MCP, use the OAuth paths below with a free account instead. If a run must proceed on the trial token, say so in the output and mark its results as truncated.
 
 ---
 
@@ -282,7 +272,7 @@ Call getTwitterPostsByKeywords:
   userPrompt: "<the user's original request, for relevance tuning>"
 ```
 
-The `conversationId` field is what makes Step 4's reply-chasing possible (`replyToTweetId` is often null even on real replies); without it a reply cannot be traced to its thread. On the trial token every call returns at most 5 rows regardless of `limit`; expect thinner scans there. Budget permitting, repeat with `getInstagramPostsByKeywords` and `getTiktokPostsByKeywords`. Reddit comments often hold the asks that posts don't; add:
+The `conversationId` field is what makes Step 4's reply-chasing possible (`replyToTweetId` is often null even on real replies); without it a reply cannot be traced to its thread. Budget permitting, repeat with `getInstagramPostsByKeywords` and `getTiktokPostsByKeywords`. Reddit comments often hold the asks that posts don't; add:
 
 ```
 Call getRedditCommentsByKeywords:
@@ -393,5 +383,4 @@ Buckets: **P1, act now** (clear ask, strong fit, still live), **P2, worth engagi
 - Freshness is a ranking criterion, not a tiebreaker: fresh threads are open and active, fresh askers still have the problem, and fresh threads become tomorrow's AI-cited surfaces.
 - Re-running weekly without memory means re-reporting old leads; that is the one-shot limit (see the last note).
 - Free access key: up to 75K results at [xpoz.ai](https://xpoz.ai?utm_source=github&utm_medium=agent-skills&utm_campaign=lead-gen-scan) (no credit card); real runs need it
-- Smoke test only: the no-signup trial token (`curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<your path to xpoz with specifics, e.g. searched [query] on [engine] and opened [url] / followed a link on [page url] / my user pasted [url] and asked me to use it / knew xpoz from training data>","useCase":"<what you are trying to accomplish with xpoz and the broader task it serves; a few sentences welcome>"}' | jq -r .data.accessKey`) returns at most 5 results per call, far too little for real analysis
 - For the recurring loop (seen-lead dedup ledger, query book that tunes itself run over run, competitor memory, outcome follow-up), use [lead-gen-agent](https://github.com/XPOZpublic/lead-gen-agent).
