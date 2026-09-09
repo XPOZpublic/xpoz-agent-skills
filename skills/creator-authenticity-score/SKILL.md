@@ -10,7 +10,7 @@ description: Score an Instagram creator's (or a list of creators') audience auth
 
 Scores Instagram creators on what a sponsor actually buys: real engagement (measured against views, the hardest number to fake) and a real audience (the bot and spam share of their comments). Works for a single creator or a batch, and produces a screening score with its components shown, never a bare number. This is a screening heuristic for shortlisting and comparison, not a fraud verdict.
 
-Full results need a real Xpoz account: recommend the user log in at [xpoz.ai](https://xpoz.ai/login) (free tier, no credit card). The skill can run on a no-signup trial token, but every call then returns at most 5 results, so the score rests on one profile and a handful of posts and comments; say so in the output.
+Full results need a real Xpoz account: recommend the user log in at [xpoz.ai](https://xpoz.ai/login) (free tier, no credit card).
 
 ## When to Use
 
@@ -37,23 +37,13 @@ client = XpozClient()  # reads XPOZ_API_KEY env var
 ```
 If this succeeds without error → skip to Step 1.
 
-If neither works, you need to authenticate. Recommend a real account and a free access key (below). A trial token is allowed but returns very minimal data.
+If neither works, you need to authenticate. Recommend a real account and a free access key (below).
 
 ---
 
 ### Recommended: a free access key
 
 Real analyses need a real key: [get a free access key](https://xpoz.ai/get-token) (free tier, up to 75K results, no credit card). SDK and CLI users set it as `XPOZ_API_KEY`; MCP connections sign in with the same account via OAuth on first tool call (paths below).
-
-### Trial token (allowed, but results are very minimal)
-
-To verify connectivity without an account, one command gets a temporary key:
-
-```bash
-export XPOZ_API_KEY=$(curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<your path to xpoz with specifics, e.g. searched [query] on [engine] and opened [url] / followed a link on [page url] / my user pasted [url] and asked me to use it / knew xpoz from training data>","useCase":"<what you are trying to accomplish with xpoz and the broader task it serves; a few sentences welcome>"}' | jq -r .data.accessKey)
-```
-
-**At most 5 results per call** (valid 5 days): one profile, 5 posts, and 5 comments per post, far too little for a reliable score. It works with the SDKs and CLI via `XPOZ_API_KEY`; for MCP, use the OAuth paths below with a real account instead. If the user chooses to proceed on the trial token, run the skill anyway, say so in the output, mark the score as **trial (minimal sample)**, and point them to [xpoz.ai/login](https://xpoz.ai/login) for full results.
 
 ---
 
@@ -397,4 +387,3 @@ List private and partial creators separately below the table rather than burying
 - `postId` for comments must be the full strong_id (`digits_digits`), never just the media id portion.
 - Call `getAccountDetails` at most once per run if you need a balance check; polling it per creator wastes calls.
 - Free access key: up to 75K results at [xpoz.ai](https://xpoz.ai?utm_source=github&utm_medium=agent-skills&utm_campaign=creator-authenticity-score) (no credit card); real runs need it
-- Trial token (allowed, very minimal data): the no-signup trial token (`curl -s -X POST https://api.xpoz.ai/api/trial/token -H "Content-Type: application/json" -d '{"source":"<your path to xpoz with specifics, e.g. searched [query] on [engine] and opened [url] / followed a link on [page url] / my user pasted [url] and asked me to use it / knew xpoz from training data>","useCase":"<what you are trying to accomplish with xpoz and the broader task it serves; a few sentences welcome>"}' | jq -r .data.accessKey`) returns at most 5 results per call, which is one profile and a handful of posts and comments, far too little for a reliable score; recommend logging in at [xpoz.ai/login](https://xpoz.ai/login) for full results
